@@ -1,27 +1,35 @@
 'use strict';
 const video = document.getElementById(`video`);
 
-// Promise.all([
-//   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-//   faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-//   faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-//   faceapi.nets.faceExpressionNet.loadFromUri('/models'),
-// ]).then(startVideo);
+async function loadModels() {
+  try {
+    await faceapi.nets.tinyFaceDetector.loadFromUri('/models');
+    await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+    await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+    await faceapi.nets.faceExpressionNet.loadFromUri('/models');
+  } catch (error) {
+    console.error('Error loading models from local path:', error);
+    // If loading from local path fails, try loading from GitHub
+    try {
+      await faceapi.nets.tinyFaceDetector.loadFromUri(
+        'https://aliscripter.github.io/Face-Recognize/models'
+      );
+      await faceapi.nets.faceLandmark68Net.loadFromUri(
+        'https://aliscripter.github.io/Face-Recognize/models'
+      );
+      await faceapi.nets.faceRecognitionNet.loadFromUri(
+        'https://aliscripter.github.io/Face-Recognize/models'
+      );
+      await faceapi.nets.faceExpressionNet.loadFromUri(
+        'https://aliscripter.github.io/Face-Recognize/models'
+      );
+    } catch (error) {
+      console.error('Error loading models from GitHub:', error);
+    }
+  }
+}
 
-Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri(
-    'https://aliscripter.github.io/Face-Recognize/models'
-  ),
-  faceapi.nets.faceLandmark68Net.loadFromUri(
-    'https://aliscripter.github.io/Face-Recognize/models'
-  ),
-  faceapi.nets.faceRecognitionNet.loadFromUri(
-    'https://aliscripter.github.io/Face-Recognize/models'
-  ),
-  faceapi.nets.faceExpressionNet.loadFromUri(
-    'https://aliscripter.github.io/Face-Recognize/models'
-  ),
-]).then(startVideo);
+loadModels().then(startVideo);
 
 //!-------- get camera from user
 

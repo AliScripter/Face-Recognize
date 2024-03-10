@@ -1,11 +1,26 @@
 'use strict';
 const video = document.getElementById(`video`);
 
+// Promise.all([
+//   faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
+//   faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
+//   faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
+//   faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+// ]).then(startVideo);
+
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromUri('/models'),
-  faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
-  faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
-  faceapi.nets.faceExpressionNet.loadFromUri('/models'),
+  faceapi.nets.tinyFaceDetector.loadFromUri(
+    'https://aliscripter.github.io/Face-Recognize/models'
+  ),
+  faceapi.nets.faceLandmark68Net.loadFromUri(
+    'https://aliscripter.github.io/Face-Recognize/models'
+  ),
+  faceapi.nets.faceRecognitionNet.loadFromUri(
+    'https://aliscripter.github.io/Face-Recognize/models'
+  ),
+  faceapi.nets.faceExpressionNet.loadFromUri(
+    'https://aliscripter.github.io/Face-Recognize/models'
+  ),
 ]).then(startVideo);
 
 //!-------- get camera from user
